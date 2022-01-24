@@ -81,7 +81,29 @@ public class PayRelatedFactory{
 
     @PostConstruct
     public void init() {
-        List<PayType>  context.getBeansOfType(PayRelated.class).values()
+        List<PayRelated> list = new ArrayList(context.getBeansOfType(PayRelated.class).values());
+        for (PayRelated payRelated : list) {
+            PayType type = payRelated.getClass()..getAnnotation(PayTypeAn.class).value()
+            beanCache.put(type, payRelated);
+        }
+        
+    }
+
+    public static PayRelated getPayRelatedByPayType(PayType payType) {
+        return beanCache.get(payType);
     }
 }
+```
+```java
+ public class UserPayService{
+
+     public boolean pay(UserPayRequest request) {
+         PayType type = PayType.getTypeFromTypeId(request.getTypeId());
+         PayRelated payRelated = PayRelatedFactory.getPayRelatedByPayType(type);
+         if (Objects.nonNull(payRelated)) {
+            return payRelated.pay(request);
+         }
+         return false
+     }
+ }
 ```
