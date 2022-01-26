@@ -107,5 +107,3 @@ public class PayRelatedFactory{
      }
  }
 ```
-
-![image-20220125143319295](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220125143319295.png)
