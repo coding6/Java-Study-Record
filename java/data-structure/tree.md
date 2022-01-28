@@ -1,6 +1,7 @@
 # Tree
 ## Binary Tree
 
+
 ## Trie Tree
 The definition of binary-tree's node is
 ```java
