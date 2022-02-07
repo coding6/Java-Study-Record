@@ -1,6 +1,6 @@
 # Dynamic Planning
 
-## Basic Overview
+## Overview
 
 
 ## practice
