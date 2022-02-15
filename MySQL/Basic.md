@@ -1,1 +1,1 @@
-# How dows an SQL statement run in MySQL
+# How does an SQL statement run in MySQL
