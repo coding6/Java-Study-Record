@@ -68,3 +68,20 @@ change buffer 的大
 * 写少读多，不适合change buffer
 如果更新之后立刻伴随查询，那么需要关闭change buffer，其他情况change buffer越大越好。
 ## change buffer和redo log
+```sql
+update table set xxx = 1, yyy = 2 where id = 4;
+```
+执行更新语句时：
+
+* 更新的页在内存中，直接更新内存
+* 不在内存中，记录change buffer，记录“要更新xxx行”这个信息
+* 上述的两个操作记录进入redo log
+* 事务结束，总共写一次磁盘，两次内存
+```sql
+select * from table where xxx = 1;
+```
+执行查询语句时：
+* 查询的记录在内存中，直接返回，结果一定是正确的。虽然此时磁盘上的数据还是旧的，WAL之后读数据不需要刷新磁盘并读盘。
+* 查询的记录不在内存中，将数据读入内存，应用change buffer中的内容，返回正确数据
+
+所以两个的主要区别就是：change buffer提升的是读性能（减少随机读磁盘的IO消耗），redo log提升的是写性能（转为顺序写）
