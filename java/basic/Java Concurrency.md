@@ -117,7 +117,7 @@ Java并发的机制依赖于JVM的实现和CPU指令。
 
 ​		Java线程之间的通信有JMM控制，JMM决定一个线程对共享变量的写入何时对另一个线程可见。抽象角度看，JMM定义了线程和主存之间的抽象关系：线程之间的共享变量存储在主内存中，每一个线程都有一个私有的本地，本地内存中存储了该线程以读/写共享变量的副本。本地内存是JMM一个抽象概念，并不真实存在。
 
-​		![1563186217342](/Library/Typora所需图/JMM.png)
+​		![1563186217342](/asset/JMM.png)
 
 ​		如果线程A与线程B之间要通信的话，必须经历两个步骤。
 
@@ -400,13 +400,13 @@ monitorexit：执行monitorexit就是把计数器-1，减到0，代表释放了�
 
 同步方法：会隐式调用monitorenter和monitorexit。
 
-![synchronized源码](/Library/Typora所需图/synchronized源码.png)
+![synchronized源码](/asset/synchronized源码.png)
 
 **JVM源码分析synchronized：**
 
 参加竞争时，其他的线程会被放在_cxq中，如果调用了wait()，会被放在等待队列中，如果释放了锁，但是重入了，这时候其他的线程会被放到 _EntryList中等待
 
-![](/Library/Typora所需图/monitor对象.png)
+![](/asset/monitor对象.png)
 
 **执行synchronized代码块中的流程大致如下：**
 
@@ -422,7 +422,7 @@ monitorexit：执行monitorexit就是把计数器-1，减到0，代表释放了�
 
 在JVM中，对象在内存中分为三块区域，对象头，实例数据和对齐填充
 
-![](/Library/Typora所需图/对象头.png)
+![](/asset/对象头.png)
 
 **对象头**
 
@@ -440,7 +440,7 @@ Mark Word存储的数据，如哈希码，GC分代年龄，锁状态的标志，
 
 Mark Word占64位，存储结构如下：
 
-![](/Library/Typora所需图/64位Mark Word.png)
+![](/asset/64位Mark Word.png)
 
 ## 第5章 Java并发编程的原子性，可见性，有序性
 
